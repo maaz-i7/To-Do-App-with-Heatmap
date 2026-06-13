@@ -2,48 +2,48 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Card = (props) => {
 
-    const getDateData = (date) => {
-        let data = localStorage.getItem(date)
-        if (data)
-            return JSON.parse(data)
+    // const getDateData = (date) => {
+    //     let data = localStorage.getItem(date)
+    //     if (data)
+    //         return JSON.parse(data)
 
-        data = {
-            "pending": [],
-            "completed": []
-        }
-        localStorage.setItem(date, JSON.stringify(data))
-        return data
-    }
+    //     data = {
+    //         "pending": [],
+    //         "completed": []
+    //     }
+    //     localStorage.setItem(date, JSON.stringify(data))
+    //     return data
+    // }
 
     const [addTaskVal, setAddTaskVal] = useState("")
     const [btnBgColor, setBtnBgColor] = useState("bg-blue-950")
-    const [dateData, setDateData] = useState(() => getDateData(props.date))
+    // const [dateData, setDateData] = useState(() => getDateData(props.date))
 
     useEffect(() => {
-        const updatedData = getDateData(props.date)
-        setDateData(updatedData)
+        const updatedData = props.getDateData(props.date)
+        props.setDateData(updatedData)
     }, [props.date])
 
     useEffect(() => {
-        localStorage.setItem(props.date, JSON.stringify(dateData))
-    }, [dateData])
+        localStorage.setItem(props.date, JSON.stringify(props.dateData))
+    }, [props.dateData])
 
     const moveTask = (index, from, to) => {
-        const value = dateData[from][index]
-        let fromList = dateData[from].filter((_, i) => i !== index)
-        let toList = [...dateData[to], value]
-        setDateData({ ...dateData, [from]: fromList, [to]: toList })
+        const value = props.dateData[from][index]
+        let fromList = props.dateData[from].filter((_, i) => i !== index)
+        let toList = [...props.dateData[to], value]
+        props.setDateData({ ...props.dateData, [from]: fromList, [to]: toList })
     }
 
     const addTask = (task, type) => { 
-        let tasksList = [...dateData[type], task] 
-        setDateData({ ...dateData, [type]: tasksList }) 
+        let tasksList = [...props.dateData[type], task] 
+        props.setDateData({ ...props.dateData, [type]: tasksList }) 
     }
 
     const removeTaskAt = (index, type) => {
-        let tasksList = dateData[type]
+        let tasksList = props.dateData[type]
         tasksList = tasksList.filter((_, i) => i !== index)
-        setDateData({ ...dateData, [type]: tasksList })
+        props.setDateData({ ...props.dateData, [type]: tasksList })
     }
 
     const inpRef = useRef()
@@ -87,7 +87,7 @@ const Card = (props) => {
     }
 
     return (
-        <div className="Card w-200 p-15 rounded-[50px]  border border-gray-700">
+        <div className="Card w-200 h-200 p-15 rounded-[50px] border border-gray-700">
             <div className="date font-bold text-[30px]">{props.date}</div>
             <div className="addTask mt-3 rounded-[25px] border border-gray-700 p-2 flex">
                 <input ref={inpRef} className="w-full p-3 outline-none" value={addTaskVal} type="text" placeholder="Add Task"
@@ -112,30 +112,30 @@ const Card = (props) => {
                 >Add</button>
             </div>
             <div className="status flex flex-col">
-                <div className={`pending w-1/1 mt-5 ${dateData.pending.length ? "" : "hidden"}`}>
+                <div className={`pending w-1/1 mt-5 ${props.dateData.pending.length ? "" : "hidden"}`}>
                     <div className="head flex text-red-300">
-                        {dateData.pending.length>0 && <div className="name">PENDING</div>}
-                        {dateData.pending.length>0 && <div className="count ml-1">({dateData.pending.length})</div>}
+                        {props.dateData.pending.length>0 && <div className="name">PENDING</div>}
+                        {props.dateData.pending.length>0 && <div className="count ml-1">({props.dateData.pending.length})</div>}
                     </div>
                     <div className="h-50 overflow-y-auto overflow-x-hidden pl-6 pr-6 mt-4">
                         {
-                            dateData.pending.map((task, i) => {
+                            props.dateData.pending.map((task, i) => {
                                 return (<Task key={i} icon={""} id={'p' + i} taskName={task} />)
                             })
                         }
                     </div>
                 </div>
                 {
-                    !dateData.pending.length && !dateData.completed.length ? <div className="self-center text-gray-400 mb-20 mt-20">Yayy! No Tasks for today!</div> : ""
+                    !props.dateData.pending.length && !props.dateData.completed.length ? <div className="self-center text-gray-400 mb-20 mt-20">Yayy! No Tasks for today!</div> : ""
                 }
                 <div className="completed w-1/1 mt-5">
                     <div className="head flex text-green-300">
-                        {dateData.completed.length>0 && <div className="name">COMPLETED</div>}
-                        {dateData.completed.length>0 && <div className="count ml-1">({dateData.completed.length})</div>}
+                        {props.dateData.completed.length>0 && <div className="name">COMPLETED</div>}
+                        {props.dateData.completed.length>0 && <div className="count ml-1">({props.dateData.completed.length})</div>}
                     </div>
                     <div className="h-50 overflow-y-auto overflow-x-hidden pl-6 pr-6 mt-4">
                         {
-                            dateData.completed.map((task, i) => {
+                            props.dateData.completed.map((task, i) => {
                                 return <Task key={i} icon={"✓"} id={'c' + i} taskName={task} />
                             })
                         }

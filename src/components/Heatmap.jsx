@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 const Heatmap = (props) => {
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    const heatColors = ["900", "800", "700", "600", "500", "400"]
+    const heatColors = ["bg-blue-900","bg-blue-800","bg-blue-700","bg-blue-600","bg-blue-500","bg-blue-400"];
+    const [updateHeatColor, setUpdateHeatColor] = useState(false)
     
     const getDatesOfYear = (year) => {
 
@@ -17,21 +18,33 @@ const Heatmap = (props) => {
     }
 
     const getHeatColor = (date) => {
+
         const dateData = JSON.parse(localStorage.getItem(date))
-        if(!dateData || (!dateData.pending.length && !dateData.completed.length))
+        if(!dateData || dateData==={})
             return "bg-gray-800"
 
-        const pendCount = dateData.pending.length; 
-        const compCount = dateData.completed.length;
+        let pendCount = dateData.pending.length
+        let compCount = dateData.completed.length
+
+        if(!pendCount && !compCount)
+            return "bg-gray-800"
 
         if(!pendCount)
             return "bg-blue-400"
 
-        const score = parseInt(compCount/pendCount) % 6
-        return `bg-blue-${heatColors[score]}`
+        if(!compCount)
+            return "bg-gray-800"
+
+        const score = Math.min(Math.round((compCount/(pendCount+compCount))*5), 5)
+        return heatColors[score]
     }
 
     const [todayHeatColor, setTodayHeatColor] = useState(() => getHeatColor(props.date))
+
+    useEffect(() => {
+        setUpdateHeatColor(updateHeatColor ? false : true)
+    }, [props.dateData, props.date])
+    
 
     let allDates = getDatesOfYear(2026)
 
@@ -66,7 +79,7 @@ const Heatmap = (props) => {
                         <div className="boxes flex">
                             <div className="box1 m-0.5 rounded bg-gray-800 w-5 h-5"></div>
                             {
-                                heatColors.map((color, i) => <div key={i} className={`box1 m-0.5 rounded bg-blue-${color} w-5 h-5`}></div> )
+                                heatColors.map((color, i) => <div key={i} className={`box1 m-0.5 rounded ${heatColors[i]} w-5 h-5`}></div> )
                             }
                         </div>
                         <div className="text-[10px]">More</div>
