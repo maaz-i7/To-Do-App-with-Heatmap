@@ -1,16 +1,50 @@
-# React + Vite
+# To-Do Tracker & Consistency Heatmap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A productivity-focused web application that helps users manage daily tasks while tracking long-term consistency and habits. The application combines a traditional to-do list with a GitHub-style activity heatmap and productivity analytics to encourage consistent progress.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* ✅ Add, edit, complete, and delete tasks
+* 📅 Organize daily activities efficiently
+* 🔥 GitHub-style consistency heatmap
+* 📊 Productivity statistics and insights
+* 💾 Persistent browser-based storage using Local Storage
+* 🚀 Fast and lightweight client-side application
+* 📱 Responsive and user-friendly interface
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React.js
+* Tailwind CSS
+* JavaScript
+* Local Storage API
 
-## Expanding the ESLint configuration
+## How It Works
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tasks are stored directly in the browser using Local Storage, eliminating the need for a backend or database. As tasks are completed, the application records activity and visualizes consistency through a heatmap while generating useful productivity statistics.
+
+## Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/todo-tracker.git
+```
+
+2. Navigate to the project directory
+
+```bash
+cd todo-tracker
+```
+
+3. Install dependencies
+
+```bash
+npm install
+```
+
+4. Start the development server
+
+```bash
+npm run dev
+```
