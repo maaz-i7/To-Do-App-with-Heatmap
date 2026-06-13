@@ -111,13 +111,13 @@ const Card = (props) => {
                     }}
                 >Add</button>
             </div>
-            <div className="status">
-                <div className="pending w-1/1 mt-5">
+            <div className="status flex flex-col">
+                <div className={`pending w-1/1 mt-5 ${dateData.pending.length ? "" : "hidden"}`}>
                     <div className="head flex text-red-300">
                         {dateData.pending.length>0 && <div className="name">PENDING</div>}
                         {dateData.pending.length>0 && <div className="count ml-1">({dateData.pending.length})</div>}
                     </div>
-                    <div className="max-h-50 overflow-y-auto overflow-x-hidden pl-6 pr-6 mt-4">
+                    <div className="h-50 overflow-y-auto overflow-x-hidden pl-6 pr-6 mt-4">
                         {
                             dateData.pending.map((task, i) => {
                                 return (<Task key={i} icon={""} id={'p' + i} taskName={task} />)
@@ -125,12 +125,15 @@ const Card = (props) => {
                         }
                     </div>
                 </div>
+                {
+                    !dateData.pending.length && !dateData.completed.length ? <div className="self-center text-gray-400 mb-20 mt-20">Yayy! No Tasks for today!</div> : ""
+                }
                 <div className="completed w-1/1 mt-5">
                     <div className="head flex text-green-300">
                         {dateData.completed.length>0 && <div className="name">COMPLETED</div>}
                         {dateData.completed.length>0 && <div className="count ml-1">({dateData.completed.length})</div>}
                     </div>
-                    <div className="max-h-50 overflow-y-auto overflow-x-hidden pl-6 pr-6 mt-4">
+                    <div className="h-50 overflow-y-auto overflow-x-hidden pl-6 pr-6 mt-4">
                         {
                             dateData.completed.map((task, i) => {
                                 return <Task key={i} icon={"✓"} id={'c' + i} taskName={task} />

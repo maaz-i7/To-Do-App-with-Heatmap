@@ -3,7 +3,7 @@ import '../output.css'
 
 const Navbar = () => {
     return (
-        <nav className="bg-gray-700 w-screen h-10 p-8 flex justify-between items-center">
+        <nav className="bg-gray-700 w-screen h-10 p-8 flex justify-between items-center sticky top-0">
             <div className="title font-bold text-[20px] max-[1000px]:text-[15px] text-white">ToDo App</div>
             <div className="links flex items-center">
                 <a href="https://github.com/maaz-i7/Cat-Facts" target="_blank">
