@@ -51,7 +51,7 @@ const Card = (props) => {
 
     const Task = ({ taskName, id, icon }) => {
         return (<div className="tasks">
-            <div className="cursor-pointer task flex items-center w-1/1 m-2 hover:bg-gray-800 p-2 rounded-[10px]"
+            <div className="cursor-pointer task flex items-center w-1/1 m-2 hover:bg-gray-800 p-2 rounded-[10px] max-[500px]:m-1 max-[500px]:p-1"
                 onClick={() => {
                     const index = Number(id.slice(1));
                     if (id[0] == 'p')
@@ -87,9 +87,9 @@ const Card = (props) => {
     }
 
     return (
-        <div className="Card w-200 h-200 p-15 rounded-[50px] border border-gray-700">
+        <div className="Card w-200 m-10 h-200 p-15 rounded-[50px] border border-gray-700 max-[1000px]:w-9/10 max-[500px]:p-10">
             <div className="date font-bold text-[30px]">{props.date}</div>
-            <div className="addTask mt-3 rounded-[25px] border border-gray-700 p-2 flex">
+            <div className="addTask mt-8 rounded-[25px] border border-gray-700 p-2 flex">
                 <input ref={inpRef} className="w-full p-3 outline-none" value={addTaskVal} type="text" placeholder="Add Task"
                     onChange={(e) => {
                         setAddTaskVal(e.target.value)

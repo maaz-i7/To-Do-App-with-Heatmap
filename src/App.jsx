@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import '../src/output.css'
 import Heatmap from './components/Heatmap'
-import Stats from './components/Stats'
 import Card from './components/Card'
 import Navbar from './components/Navbar'
 
@@ -28,7 +27,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <Stats />
       <Card date={date} dateData={dateData} setDateData={setDateData} getDateData={getDateData} />
       <Heatmap date={date} setDate={setDate} dateData={dateData} />
     </>
