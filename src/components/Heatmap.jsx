@@ -1,13 +1,15 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useRef } from "react";
 
 const Heatmap = (props) => {
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const heatColors = ["bg-blue-900", "bg-blue-800", "bg-blue-700", "bg-blue-600", "bg-blue-500", "bg-blue-400"];
+    
+    const scrollContainerRef = useRef(null);
 
     const allDates = useMemo(() => {
         const dates = [];
         const today = new Date();
-        today.setHours(0, 0, 0, 0); 
+        today.setHours(0, 0, 0, 0);
 
         for (let i = 363; i >= 0; i--) {
             const d = new Date(today);
@@ -39,20 +41,26 @@ const Heatmap = (props) => {
             let compCount = dateData.completed?.length || 0;
 
             if (!pendCount && !compCount) return "bg-gray-800";
-            if (!pendCount) return "bg-blue-400"; 
-            if (!compCount) return "bg-gray-800"; 
+            if (!pendCount) return "bg-blue-400";
+            if (!compCount) return "bg-gray-800";
 
             const score = Math.min(Math.round((compCount / (pendCount + compCount)) * 5), 5);
             return heatColors[score];
         } catch (e) {
-            return "bg-gray-800"; 
+            return "bg-gray-800";
         }
     };
 
-    return (
-        <div className="max-[1300px]:w-9/10 max-[1300px]:overflow-scroll">
-            <div className="w-fit border border-gray-700 rounded-4xl mt-5 mb-50 h-fit flex flex-col p-10 bg-gray-900 text-white">
+    useEffect(() => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+        }
+    }, []);
 
+    return (
+        <div ref={scrollContainerRef} className="max-[1300px]:w-9/10 max-[1300px]:overflow-x-scroll scroll-smooth hide-scrollbar">
+            <div className="w-fit border border-gray-700 rounded-4xl mt-5 mb-50 h-fit flex flex-col p-10 bg-gray-900 text-white">
+                
                 <div className="head flex justify-between w-full mb-2 text-sm text-gray-400 px-1">
                     {displayMonths.map((month, i) => (
                         <div key={`${month}-${i}`}>{month}</div>

@@ -87,10 +87,10 @@ const Card = (props) => {
     }
 
     return (
-        <div className="Card w-200 m-10 h-200 p-15 rounded-[50px] border border-gray-700 max-[1000px]:w-9/10 max-[500px]:p-10">
-            <div className="date font-bold text-[30px]">{props.date}</div>
+        <div className="Card w-200 m-10 h-200 p-15 rounded-[50px] border border-gray-700 max-[1000px]:w-9/10 max-[500px]:p-6">
+            <div className="date font-bold text-[30px] max-[500px]:mt-4 max-[500px]:text-center">{props.date}</div>
             <div className="addTask mt-8 rounded-[25px] border border-gray-700 p-2 flex">
-                <input ref={inpRef} className="w-full p-3 outline-none" value={addTaskVal} type="text" placeholder="Add Task"
+                <input ref={inpRef} className="w-full p-3 outline-none max-[500px]:p-1" value={addTaskVal} type="text" placeholder="Add Task"
                     onChange={(e) => {
                         setAddTaskVal(e.target.value)
                         setBtnBgColor(e.target.value ? "bg-blue-500" : "bg-blue-950")
