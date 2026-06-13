@@ -1,6 +1,8 @@
 # To-Do Tracker & Consistency Heatmap
 
-A productivity-focused web application that helps users manage daily tasks while tracking long-term consistency and habits. The application combines a traditional to-do list with a GitHub-style activity heatmap and productivity analytics to encourage consistent progress.
+A productivity-focused web application that helps users manage daily tasks while tracking long-term consistency and habits. The application combines a traditional to-do list with a GitHub-style activity heatmap and productivity analytics to encourage consistent progress. 
+
+## Check it out [here](https://to-do-app-by-maaz.vercel.app/)
 
 ## Features
 
