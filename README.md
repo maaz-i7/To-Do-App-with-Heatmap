@@ -9,7 +9,6 @@ A productivity-focused web application that helps users manage daily tasks while
 * ✅ Add, edit, complete, and delete tasks
 * 📅 Organize daily activities efficiently
 * 🔥 GitHub-style consistency heatmap
-* 📊 Productivity statistics and insights
 * 💾 Persistent browser-based storage using Local Storage
 * 🚀 Fast and lightweight client-side application
 * 📱 Responsive and user-friendly interface
