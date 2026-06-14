@@ -1,10 +1,13 @@
-import React, { useMemo, useEffect, useRef } from "react";
+import React, { useMemo, useEffect, useRef, useState } from "react";
 
 const Heatmap = (props) => {
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const heatColors = ["bg-blue-900", "bg-blue-800", "bg-blue-700", "bg-blue-600", "bg-blue-500", "bg-blue-400"];
     
     const scrollContainerRef = useRef(null);
+    
+    // Forces a re-render if the parent mutates props.dateData instead of creating a new object
+    const [, setUpdateTrigger] = useState(0);
 
     const allDates = useMemo(() => {
         const dates = [];
@@ -51,11 +54,17 @@ const Heatmap = (props) => {
         }
     };
 
+    // Auto-scroll to the far right on initial load
     useEffect(() => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
         }
     }, []);
+
+    // Listen for changes to the parent's data and force a visual refresh
+    useEffect(() => {
+        setUpdateTrigger(prev => prev + 1);
+    }, [props.dateData, props.date]);
 
     return (
         <div ref={scrollContainerRef} className="max-[1300px]:w-9/10 max-[1300px]:overflow-x-scroll scroll-smooth hide-scrollbar">
@@ -71,7 +80,7 @@ const Heatmap = (props) => {
                     <div className="dayBoxes w-fit grid grid-rows-7 grid-flow-col gap-1">
                         {allDates.map((date) => (
                             <div
-                                title={date}
+                                title={new Date(date).toDateString()} // Explicitly format the date for the hover tooltip
                                 key={date}
                                 date-value={date}
                                 className={`
