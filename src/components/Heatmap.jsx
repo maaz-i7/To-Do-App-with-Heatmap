@@ -85,8 +85,8 @@ const Heatmap = (props) => {
                                 date-value={date}
                                 className={`
                                     ${getHeatColor(date)} 
-                                    rounded-sm w-4 h-4 cursor-pointer transition-colors duration-200 hover:ring-2 hover:ring-gray-400
-                                    ${date === props.date ? "border-2 border-white ring-2 ring-white" : ""}
+                                    rounded w-5 h-5 cursor-pointer transition-colors duration-200 hover:ring-2 hover:ring-gray-400
+                                    ${date === props.date ? "outline outline-white" : ""}
                                 `}
                                 onClick={() => props.setDate(date)}
                             />
